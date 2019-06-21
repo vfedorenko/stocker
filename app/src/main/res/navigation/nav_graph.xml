@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/tickerFragment">
+
+    <fragment
+            android:id="@+id/tickerFragment"
+            android:name="com.itechart.stocker.TickerFragment"
+            android:label="fragment_ticker"
+            tools:layout="@layout/fragment_ticker">
+
+        <action
+                android:id="@+id/navigate_to_portfolio"
+                app:destination="@id/portfolioFragment"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/portfolioFragment"
+            android:name="com.itechart.stocker.PortfolioFragment"
+            android:label="fragment_portfolio"
+            tools:layout="@layout/fragment_portfolio">
+
+        <action
+                android:id="@+id/to_stock_details"
+                app:destination="@id/stockDetailsFragment"/>
+
+        <argument
+                android:name="tickers"
+                app:argType="string[]"/>
+    </fragment>
+
+    <fragment
+            android:id="@+id/stockDetailsFragment"
+            android:name="com.itechart.stocker.StockDetailsFragment"
+            android:label="fragment_stock_details"
+            tools:layout="@layout/fragment_stock_details"/>
+</navigation>

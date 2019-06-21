@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Stocker</string>
+
+    <string name="ticker_hint">Ticker Symbols</string>
+    <string name="ticker_sample">E.G. GOOG, TSLA, LC</string>
+    <string name="next">Next</string>
 </resources>
