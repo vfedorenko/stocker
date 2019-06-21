@@ -4,4 +4,5 @@
     <string name="ticker_hint">Ticker Symbols</string>
     <string name="ticker_sample">E.G. GOOG, TSLA, LC</string>
     <string name="next">Next</string>
+    <string name="stock_value">%.2f</string>
 </resources>

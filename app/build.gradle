@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
     compileSdkVersion 28
@@ -22,6 +23,10 @@ android {
     dataBinding.enabled = true
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -39,6 +44,7 @@ dependencies {
 
     implementation "org.koin:koin-android:2.0.1"
 
+    implementation 'com.github.nitrico.lastadapter:lastadapter:2.3.0'
 
     testImplementation 'junit:junit:4.12'
 

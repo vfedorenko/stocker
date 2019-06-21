@@ -7,17 +7,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.github.nitrico.lastadapter.LastAdapter
+import com.itechart.stocker.databinding.FragmentPortfolioBinding
+import com.itechart.stocker.databinding.FragmentTickerBinding
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class PortfolioFragment : Fragment() {
 
-    private lateinit var viewModel: PortfolioViewModel
+    private lateinit var portfolioViewModel: PortfolioViewModel
 
     private val args: PortfolioFragmentArgs by navArgs()
 
@@ -26,22 +35,50 @@ class PortfolioFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        args.tickers.forEach { Log.d("1111", it) }
+        portfolioViewModel = ViewModelProviders.of(this@PortfolioFragment).get(PortfolioViewModel::class.java)
+        portfolioViewModel.navigateToDirection.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                findNavController().navigate(it)
+            }
+        })
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_portfolio, container, false)
+        return DataBindingUtil.inflate<FragmentPortfolioBinding>(
+            inflater,
+            R.layout.fragment_portfolio,
+            container,
+            false
+        )
+            .apply {
+                viewModel = portfolioViewModel
+                lifecycleOwner = this@PortfolioFragment
+            }.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(PortfolioViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onStart() {
+        super.onStart()
+
+        portfolioViewModel.init(args.tickers)
     }
 }
 
-class PortfolioViewModel : ViewModel() {
+class PortfolioViewModel : ViewModel(), KoinComponent, Routable by LiveDataNavigation() {
 
-    private val _navigateToStockDetails = MutableLiveData<Event<NavDirections>>()
-    val navigateToStockDetails: LiveData<Event<NavDirections>>
-        get() = _navigateToStockDetails
+//    private val stocksRepository: StocksRepository by inject()
+    private val stocksRepository: StocksRepository = StubStockRepository()
+
+    private val stockViewModels = ObservableArrayList<StockItemViewModel>()
+
+    private val onStockSelected: (Stock) -> Unit = { navigateTo(PortfolioFragmentDirections.toStockDetails(it)) }
+
+    val adapter: LastAdapter = LastAdapter(stockViewModels, BR.viewModel)
+        .map<StockItemViewModel>(R.layout.item_stock)
+
+    fun init(tickers: Array<String>) {
+        stocksRepository.getStocksByTickers(tickers) { stocks ->
+            stockViewModels.clear()
+            stocks.forEach {
+                stockViewModels.add(StockItemViewModel(it, onStockSelected))
+            }
+        }
+    }
 }

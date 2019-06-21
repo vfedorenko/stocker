@@ -24,7 +24,12 @@
 
         <action
                 android:id="@+id/to_stock_details"
-                app:destination="@id/stockDetailsFragment"/>
+                app:destination="@id/stockDetailsFragment">
+
+            <argument
+                    android:name="stock"
+                    app:argType="com.itechart.stocker.Stock"/>
+        </action>
 
         <argument
                 android:name="tickers"
@@ -35,5 +40,10 @@
             android:id="@+id/stockDetailsFragment"
             android:name="com.itechart.stocker.StockDetailsFragment"
             android:label="fragment_stock_details"
-            tools:layout="@layout/fragment_stock_details"/>
+            tools:layout="@layout/fragment_stock_details">
+
+        <argument
+                android:name="stock"
+                app:argType="com.itechart.stocker.Stock"/>
+    </fragment>
 </navigation>
