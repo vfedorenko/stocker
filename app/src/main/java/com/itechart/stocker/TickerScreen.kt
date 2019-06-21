@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import com.itechart.stocker.databinding.FragmentTickerBinding
 
@@ -25,7 +23,7 @@ class TickerFragment : Fragment() {
     ): View? {
 
         tickerViewModel = ViewModelProviders.of(this@TickerFragment).get(TickerViewModel::class.java)
-        tickerViewModel.navigateToPortfolio.observe(this, Observer { event ->
+        tickerViewModel.navigateToDirection.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 findNavController().navigate(it)
             }
@@ -39,21 +37,15 @@ class TickerFragment : Fragment() {
     }
 }
 
-class TickerViewModel : ViewModel() {
+class TickerViewModel : ViewModel(), Routable by LiveDataNavigation() {
 
     val tickerText = ObservableField<String>()
-
-    private val _navigateToPortfolio = MutableLiveData<Event<NavDirections>>()
-    val navigateToPortfolio: LiveData<Event<NavDirections>>
-        get() = _navigateToPortfolio
 
     fun onNextClick() {
         val tickers = parseTickers(tickerText.get())
 
         if (tickers.isNotEmpty()) {
-            _navigateToPortfolio.value = Event(
-                TickerFragmentDirections.navigateToPortfolio(tickers)
-            )
+            navigateTo(TickerFragmentDirections.navigateToPortfolio(tickers))
         }
 
         // TODO Add max items filter

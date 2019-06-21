@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.navArgs
 
 
@@ -37,4 +40,8 @@ class PortfolioFragment : Fragment() {
 }
 
 class PortfolioViewModel : ViewModel() {
+
+    private val _navigateToStockDetails = MutableLiveData<Event<NavDirections>>()
+    val navigateToStockDetails: LiveData<Event<NavDirections>>
+        get() = _navigateToStockDetails
 }
