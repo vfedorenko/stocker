@@ -15,12 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/chartView"
+        <LinearLayout
+            android:id="@+id/chartLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:transitionName="chartView"
-            app:srcCompat="@android:drawable/ic_menu_gallery"
+            android:padding="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,16 @@
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.5"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0">
+
+            <com.itechart.stocker.ui.ChartView
+                android:id="@+id/chartView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:isMinified="false"
+                chartValues="@{viewModel.chartValues}" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tickerText"
@@ -39,7 +47,7 @@
             android:text="@{viewModel.ticker}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/valueText"
-            app:layout_constraintTop_toBottomOf="@+id/chartView"
+            app:layout_constraintTop_toBottomOf="@+id/chartLayout"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             tools:text="GOOG"/>
@@ -50,12 +58,11 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_margin="@dimen/default_margin"
-            android:transitionName="valueText"
             android:text="@{@string/stock_value(viewModel.lastValue)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tickerText"
             app:layout_constraintBottom_toTopOf="@+id/descText"
-            app:layout_constraintTop_toBottomOf="@+id/chartView"
+            app:layout_constraintTop_toBottomOf="@+id/chartLayout"
             tools:text="1596.23"/>
 
         <TextView

@@ -43,13 +43,22 @@
                 android:text="@{@string/stock_value(viewModel.value)}"
                 tools:text="152.54"/>
 
-            <ImageView
-                android:id="@+id/chartView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:transitionName="chartView"
-                app:srcCompat="@android:drawable/ic_menu_gallery"/>
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <com.itechart.stocker.ui.ChartView
+                    android:id="@+id/chartView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    chartValues="@{viewModel.chartValues}" />
+            </LinearLayout>
+
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

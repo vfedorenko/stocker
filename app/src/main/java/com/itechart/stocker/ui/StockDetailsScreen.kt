@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
 import androidx.fragment.app.Fragment
@@ -59,6 +60,7 @@ class StockDetailsViewModel : ViewModel() {
 
     val ticker = ObservableField<String>()
     val lastValue = ObservableFloat()
+    val chartValues = ObservableArrayList<Float>()
 
     private lateinit var stock: Stock
 
@@ -67,5 +69,10 @@ class StockDetailsViewModel : ViewModel() {
 
         ticker.set(stock.ticker)
         lastValue.set(stock.values.last().close)
+        chartValues.addAll(
+            stock.values
+                .map { it.close }
+                .take(10)
+        )
     }
 }
