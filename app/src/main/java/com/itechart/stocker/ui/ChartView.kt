@@ -71,9 +71,7 @@ class ChartView @JvmOverloads constructor(
                 val startY = prevY
                 val stopY = (value - minValue) * multiplier
 
-                Log.d("1111", "startY = $startY, stopY = $stopY")
-
-                val risingDelta = stopY - startY
+                val risingDelta = startY - stopY
                 if (risingDelta >= maxRisingDelta) {
                     maxRisingDelta = risingDelta
                     maxRisingLine = arrayOf(startX.toFloat(), startY, stopX.toFloat(), stopY)
