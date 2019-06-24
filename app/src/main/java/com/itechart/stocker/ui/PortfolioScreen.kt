@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itechart.stocker.*
 import com.itechart.stocker.databinding.FragmentPortfolioBinding
 import org.koin.core.KoinComponent
+import org.koin.core.inject
 
 
 class PortfolioFragment : Fragment() {
@@ -35,6 +36,7 @@ class PortfolioFragment : Fragment() {
         binding.recyclerView.adapter = StocksAdapter()
 
         portfolioViewModel = ViewModelProviders.of(this@PortfolioFragment).get(PortfolioViewModel::class.java)
+        portfolioViewModel.init(args.tickers)
 
         binding.apply {
             viewModel = portfolioViewModel
@@ -43,25 +45,19 @@ class PortfolioFragment : Fragment() {
 
         return binding.root
     }
-
-    override fun onStart() {
-        super.onStart()
-
-        portfolioViewModel.init(args.tickers)
-    }
 }
 
 class PortfolioViewModel : ViewModel(), KoinComponent, Routable by LiveDataNavigation() {
 
-    //    private val stocksRepository: StocksRepository by inject()
-    private val stocksRepository: StocksRepository = StubStockRepository()
+    private val stocksRepository: StocksRepository by inject()
 
     val stockItems = ObservableArrayList<Stock>()
 
     fun init(tickers: Array<String>) {
-        stocksRepository.getStocksByTickers(tickers) { stocks ->
-            stockItems.clear()
-            stockItems.addAll(stocks)
+        if (stockItems.isEmpty()) {
+            stocksRepository.getStocksByTickers(tickers) { stocks ->
+                stockItems.addAll(stocks)
+            }
         }
     }
 }

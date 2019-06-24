@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
+import androidx.databinding.ObservableFloat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
@@ -33,7 +34,7 @@ class StockDetailsFragment : Fragment() {
         initAnimation(binding)
 
         stockViewModel = ViewModelProviders.of(this@StockDetailsFragment).get(StockDetailsViewModel::class.java)
-        stockViewModel.stock.set(args.stock)
+        stockViewModel.initStock(args.stock)
 
         binding.apply {
             viewModel = stockViewModel
@@ -55,5 +56,16 @@ class StockDetailsFragment : Fragment() {
 }
 
 class StockDetailsViewModel : ViewModel() {
-    val stock = ObservableField<Stock>()
+
+    val ticker = ObservableField<String>()
+    val lastValue = ObservableFloat()
+
+    private lateinit var stock: Stock
+
+    fun initStock(stock: Stock) {
+        this.stock = stock
+
+        ticker.set(stock.ticker)
+        lastValue.set(stock.values.last().close)
+    }
 }

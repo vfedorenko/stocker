@@ -27,7 +27,7 @@ class StocksAdapter : RecyclerView.Adapter<BindingHolder>() {
     override fun onBindViewHolder(holder: BindingHolder, position: Int) {
         val item = items[position]
 
-        holder.bind(item)
+        holder.bind(StockItemViewModel(item))
 
         holder.binding.root.apply {
             setOnClickListener {
@@ -60,8 +60,8 @@ class StocksAdapter : RecyclerView.Adapter<BindingHolder>() {
 }
 
 class BindingHolder(val binding: ItemStockBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(stock: Stock) {
-        binding.item = stock
+    fun bind(itemViewModel: StockItemViewModel) {
+        binding.viewModel = itemViewModel
         binding.executePendingBindings()
     }
 }

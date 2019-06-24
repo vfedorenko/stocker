@@ -1,15 +1,32 @@
 package com.itechart.stocker
 
-import kotlin.random.Random
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 interface StocksRepository {
     fun getStocksByTickers(tickers: Array<String>, callback: (List<Stock>) -> Unit)
 }
 
-class StubStockRepository : StocksRepository {
+class StocksRepositoryImpl(private val stockApi: StockApi) : StocksRepository, CoroutineScope {
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO
+
     override fun getStocksByTickers(tickers: Array<String>, callback: (List<Stock>) -> Unit) {
-        callback.invoke(
-            tickers.map { Stock(it, Random.nextDouble(50.0, 9999.0).toFloat()) }
-        )
+        launch {
+            val result = mutableListOf<Stock>()
+
+            tickers.forEach {
+                val values = stockApi.getStockInfo(it)
+
+                if (!values.isNullOrEmpty()) {
+                    result.add(Stock(it, values))
+                }
+            }
+
+            callback.invoke(result)
+        }
     }
 }

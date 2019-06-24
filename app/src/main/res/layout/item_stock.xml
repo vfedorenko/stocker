@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="item"
-            type="com.itechart.stocker.Stock"/>
+            name="viewModel"
+            type="com.itechart.stocker.ui.StockItemViewModel"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="@{item.ticker}"
+                android:text="@{viewModel.ticker}"
                 tools:text="GOOG"/>
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:transitionName="valueText"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:text="@{@string/stock_value(item.value)}"
+                android:text="@{@string/stock_value(viewModel.value)}"
                 tools:text="152.54"/>
 
             <ImageView
