@@ -56,10 +56,6 @@
                     android:layout_height="match_parent"
                     chartValues="@{viewModel.chartValues}" />
             </LinearLayout>
-
-
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>
-

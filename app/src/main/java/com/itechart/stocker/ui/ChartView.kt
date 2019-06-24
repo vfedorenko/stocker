@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.itechart.stocker.R
 
@@ -57,10 +58,11 @@ class ChartView @JvmOverloads constructor(
     // TODO take a padding into an account
     private fun drawChart(canvas: Canvas) {
         val linesWidth = width / (values.size - 1)
-
         val multiplier = height / (maxValue - minValue)
-
         var prevY = (values[0] - minValue) * multiplier
+
+        var maxRisingDelta = 0f
+        var maxRisingLine = arrayOf<Float>()
 
         values.forEachIndexed { index, value ->
             if (index != 0) {
@@ -69,10 +71,27 @@ class ChartView @JvmOverloads constructor(
                 val startY = prevY
                 val stopY = (value - minValue) * multiplier
 
+                Log.d("1111", "startY = $startY, stopY = $stopY")
+
+                val risingDelta = stopY - startY
+                if (risingDelta >= maxRisingDelta) {
+                    maxRisingDelta = risingDelta
+                    maxRisingLine = arrayOf(startX.toFloat(), startY, stopX.toFloat(), stopY)
+                }
+
                 canvas.drawLine(startX.toFloat(), startY, stopX.toFloat(), stopY, paint)
 
                 prevY = stopY
             }
+        }
+
+        if (!isMinified) {
+            val boldPaint = Paint().apply {
+                color = Color.GREEN
+                strokeWidth = 10f
+            }
+
+            canvas.drawLines(maxRisingLine.toFloatArray(), boldPaint)
         }
     }
 }
