@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
-                name="viewModel"
-                type="com.itechart.stocker.PortfolioViewModel"/>
+            name="viewModel"
+            type="com.itechart.stocker.ui.PortfolioViewModel"/>
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            lastAdapter="@{viewModel.adapter}"/>
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        adapterItems="@{viewModel.stockItems}"/>
 </layout>
-

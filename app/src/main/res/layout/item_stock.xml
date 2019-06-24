@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
-                name="viewModel"
-                type="com.itechart.stocker.StockItemViewModel"/>
+            name="item"
+            type="com.itechart.stocker.Stock"/>
     </data>
 
     <androidx.cardview.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onItemClicked()}"
-            app:cardUseCompatPadding="true">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
 
-        <LinearLayout android:orientation="horizontal"
-                      android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:gravity="center_vertical"
-                      android:layout_margin="@dimen/screen_margin">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_margin="@dimen/screen_margin">
+
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:text="@{viewModel.stock.ticker}"
-                    tools:text="GOOG"/>
+                android:id="@+id/tickerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="@{item.ticker}"
+                tools:text="GOOG"/>
+
             <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:text="@{@string/stock_value(viewModel.stock.value)}"
-                    tools:text="152.54"/>
+                android:id="@+id/valueText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:transitionName="valueText"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="@{@string/stock_value(item.value)}"
+                tools:text="152.54"/>
 
             <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@android:drawable/ic_menu_gallery"
-                    android:layout_weight="1"/>
+                android:id="@+id/chartView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:transitionName="chartView"
+                app:srcCompat="@android:drawable/ic_menu_gallery"/>
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 </layout>
 

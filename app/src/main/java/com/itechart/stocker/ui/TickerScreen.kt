@@ -1,15 +1,20 @@
-package com.itechart.stocker
+package com.itechart.stocker.ui
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableField
-import androidx.lifecycle.*
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.itechart.stocker.LiveDataNavigation
+import com.itechart.stocker.R
+import com.itechart.stocker.Routable
 import com.itechart.stocker.databinding.FragmentTickerBinding
 
 
@@ -29,7 +34,10 @@ class TickerFragment : Fragment() {
             }
         })
 
-        return DataBindingUtil.inflate<FragmentTickerBinding>(inflater, R.layout.fragment_ticker, container, false)
+        return DataBindingUtil.inflate<FragmentTickerBinding>(
+            inflater,
+            R.layout.fragment_ticker, container, false
+        )
             .apply {
                 viewModel = tickerViewModel
                 lifecycleOwner = this@TickerFragment

@@ -1,12 +1,11 @@
 package com.itechart.stocker
 
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.nitrico.lastadapter.LastAdapter
+import com.itechart.stocker.ui.StocksAdapter
 
-@BindingAdapter("lastAdapter")
-fun setLastAdapter(recyclerView: RecyclerView, adapter: LastAdapter) {
-    recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
-    adapter.into(recyclerView)
+@BindingAdapter("adapterItems")
+fun setAdapterItems(recyclerView: RecyclerView, stockItems: List<Stock>) {
+    val adapter = recyclerView.adapter as StocksAdapter
+    adapter.updateItems(stockItems)
 }
