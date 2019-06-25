@@ -1,4 +1,4 @@
-package com.itechart.stocker
+package com.itechart.stocker.businesslogic
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

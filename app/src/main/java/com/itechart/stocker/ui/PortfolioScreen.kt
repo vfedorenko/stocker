@@ -13,6 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itechart.stocker.*
+import com.itechart.stocker.businesslogic.Stock
+import com.itechart.stocker.businesslogic.StocksRepository
 import com.itechart.stocker.databinding.FragmentPortfolioBinding
 import org.koin.core.KoinComponent
 import org.koin.core.inject

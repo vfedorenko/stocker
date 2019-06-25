@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import com.itechart.stocker.R
-import com.itechart.stocker.Stock
+import com.itechart.stocker.businesslogic.Stock
 import com.itechart.stocker.databinding.FragmentStockDetailsBinding
 
 

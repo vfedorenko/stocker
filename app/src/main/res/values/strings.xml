@@ -2,7 +2,13 @@
     <string name="app_name">Stocker</string>
 
     <string name="ticker_hint">Ticker Symbols</string>
-    <string name="ticker_sample">E.G. GOOG, TSLA, LC</string>
+    <string name="ticker_sample">Example: GOOG, TSLA, LC</string>
     <string name="next">Next</string>
     <string name="stock_value">%.2f</string>
+
+    <string name="error_empty_string">This field is required</string>
+    <string name="error_too_many_tickers">MAX 5 tickers</string>
+    <string name="error_wrong_format">Wrong ticker format</string>
+
+    <string name="error_backend">Backend error: %s</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.itechart.stocker
+package com.itechart.stocker.businesslogic
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,10 +19,14 @@ class StocksRepositoryImpl(private val stockApi: StockApi) : StocksRepository, C
             val result = mutableListOf<Stock>()
 
             tickers.forEach {
-                val values = stockApi.getStockInfo(it)
+                val response = stockApi.getStockInfo(it)
 
-                if (!values.isNullOrEmpty()) {
-                    result.add(Stock(it, values))
+                if (response.isSuccessful) {
+                    val values = response.body()
+
+                    if (!values.isNullOrEmpty()) {
+                        result.add(Stock(it, values))
+                    }
                 }
             }
 

@@ -39,7 +39,7 @@
 
         <argument
             android:name="stock"
-            app:argType="com.itechart.stocker.Stock"/>
+            app:argType="com.itechart.stocker.businesslogic.Stock"/>
         <argument
             android:name="transitionNames"
             app:argType="string[]"/>

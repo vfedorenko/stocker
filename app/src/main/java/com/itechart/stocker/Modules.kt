@@ -1,5 +1,8 @@
 package com.itechart.stocker
 
+import com.itechart.stocker.businesslogic.StockApi
+import com.itechart.stocker.businesslogic.StocksRepository
+import com.itechart.stocker.businesslogic.StocksRepositoryImpl
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

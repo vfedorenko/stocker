@@ -7,10 +7,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import com.itechart.stocker.R
-import com.itechart.stocker.Stock
+import com.itechart.stocker.businesslogic.Stock
 import com.itechart.stocker.databinding.ItemStockBinding
-import kotlinx.android.synthetic.main.fragment_stock_details.view.*
-import kotlinx.android.synthetic.main.item_stock.view.*
 import kotlinx.android.synthetic.main.item_stock.view.chartView
 import kotlinx.android.synthetic.main.item_stock.view.tickerText
 import kotlinx.android.synthetic.main.item_stock.view.valueText

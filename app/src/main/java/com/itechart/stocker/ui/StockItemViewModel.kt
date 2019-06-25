@@ -1,6 +1,6 @@
 package com.itechart.stocker.ui
 
-import com.itechart.stocker.Stock
+import com.itechart.stocker.businesslogic.Stock
 
 class StockItemViewModel(stock: Stock) {
     val ticker = stock.ticker
