@@ -31,22 +31,25 @@ class StocksAdapter : RecyclerView.Adapter<BindingHolder>() {
 
         holder.bind(StockItemViewModel(item))
 
+        val transitionNames = arrayOf(
+            "chartView$position",
+            "tickerText$position",
+            "valueText$position",
+            "root$position"
+        )
+
+        holder.binding.chartView.transitionName = transitionNames[0]
+        holder.binding.tickerText.transitionName = transitionNames[1]
+        holder.binding.valueText.transitionName = transitionNames[2]
+        holder.binding.root.transitionName = transitionNames[3]
+
         holder.binding.root.apply {
             setOnClickListener {
-                val transitionNames = arrayOf(
-                    "chartView$position",
-                    "tickerText$position",
-                    "valueText$position"
-                )
-
-                chartView.transitionName = transitionNames[0]
-                tickerText.transitionName = transitionNames[1]
-                valueText.transitionName = transitionNames[2]
-
                 val extras = FragmentNavigatorExtras(
                     chartView to transitionNames[0],
                     tickerText to transitionNames[1],
-                    valueText to transitionNames[2]
+                    valueText to transitionNames[2],
+                    this to transitionNames[3]
                 )
 
                 findNavController().navigate(PortfolioFragmentDirections.toStockDetails(item, transitionNames), extras)

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
 import androidx.fragment.app.Fragment
@@ -12,7 +13,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.itechart.stocker.*
+import com.itechart.stocker.LiveDataNavigation
+import com.itechart.stocker.R
+import com.itechart.stocker.Routable
 import com.itechart.stocker.businesslogic.Stock
 import com.itechart.stocker.businesslogic.StocksRepository
 import com.itechart.stocker.databinding.FragmentPortfolioBinding
@@ -46,6 +49,14 @@ class PortfolioFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Backward shared elements transition workaround https://github.com/googlesamples/android-architecture-components/issues/495
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
     }
 }
 

@@ -53,6 +53,7 @@ class StockDetailsFragment : Fragment() {
         binding.chartView.transitionName = transitions[0]
         binding.tickerText.transitionName = transitions[1]
         binding.valueText.transitionName = transitions[2]
+        binding.root.transitionName = transitions[3]
     }
 }
 
